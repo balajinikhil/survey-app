@@ -1,0 +1,30 @@
+﻿block variables
+doctype html
+html
+  head
+    title Friend Knower
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="/style.css")
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans:300", rel="stylesheet", type="text/css")
+  body.container-fixed
+    block heading
+        nav#navigation.navbar.navbar-inverse
+            div.container-fixed
+                div.navbar-header
+                    a(href="/").navbar-brand Friend Knower
+                ul#navigation.nav.navbar-nav
+                    li
+                        a(href="/create") Create Form
+                    li
+                        a(href="/about") About & Contact
+                    li
+                        a(href="/policy") Privacy Policy
+
+    div.container
+        block content
+
+    block footer
+        footer.footer
+            div
+                p Friend Knower

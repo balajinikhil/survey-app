@@ -1,0 +1,12 @@
+﻿extends layout.pug
+
+block variables
+ - var formLink= "/preview/" + formId
+
+block content
+    h4 Your Form has been created
+    p Share your form with your friends, and find out who knows you more.
+    p Your form link is 
+        a(href=formLink) this
+        span.
+            . Copy and share.

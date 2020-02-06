@@ -1,0 +1,48 @@
+﻿extends layout.pug
+
+block variables
+  - var questions = 10
+
+block content
+    form(action = "/create", method = "POST").form
+         .content
+         div.span4#headerText
+            h3 Enter the details...
+
+            div#userdetails
+                div.form-group
+                    label.control-label Your Name:
+                    input(type="text", name="username", placeholder="John Doe" id="username", required).form-control.input-lg
+                    p Fill in the questions below and submit the form to get the shareable link.
+
+            - for (var question = 1; question <= questions; question++) {
+            - var randomOption = Math.floor(Math.random() * (4 - 1) + 1);
+             div.span#questions
+                h4.bold= "Question #" + question
+                - var name = "question" + question
+                input(type="text", name=name, placeholder="Question " + question, required).form-control.input-lg
+                br 
+
+                - var options = 4
+                - for (var option = 1; option <= options; option++) {
+                 div.form-group
+                     - var optionName = name + "option" + option
+                     - var selectedOption = "question" + question + "selected"
+
+                      div.radio
+                          label#q1op1label.radio-inline.control-label
+                              input(type="radio", name=selectedOption, value=option, required)
+                              input(type="text", name=optionName, placeholder="Question " + question + " option " + option, id=optionName, required).form-control.expandinginput
+                - }
+            - }
+
+         input(type="hidden", name="questions", value=questions)
+         div.span4#Submitbutton
+            button(type = "submit")#sbmitBtn.btn.btn-success Generate Form!
+         br 
+         em By submitting you confirm that you have read and agree to 
+            a(href="/policy") the terms and policies of privacy
+            span.
+                . Do not share passwords, credit card information or other sensitive information through these forms.
+                .
+

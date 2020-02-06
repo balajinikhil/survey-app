@@ -1,0 +1,22 @@
+﻿extends layout.pug
+
+block content
+    if notSolved == true
+        h3 Nothing here
+        p This form has not been solved yet, would you like to solve it for them?
+        p Visit 
+            span. 
+            a(href="/preview/" + formId) this link 
+            span.
+                to fill the questionnarie.
+
+    else 
+        h3 Stats for the 
+            span.
+            a(href="/preview/" + formId) form
+
+        div#stats
+            - for (var i = 0; i < solutions.length; i++) {
+             div#item
+                p.bold= solutions[i].by + " — " + solutions[i].corrects + "/15."
+            - }
