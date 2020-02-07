@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 
 const app = require("./app");
 const port = process.env.PORT || 7000;
-const DB = process.env.DATABASE_LOCAL;
+let DB = process.env.DATABASE;
+
+DB = DB.replace("<PASSWORD>", process.env.PASSWORD);
 
 mongoose
   .connect(DB, {
