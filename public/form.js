@@ -11,6 +11,10 @@ let score = 0;
 let questionCounter = 0;
 let availableQuesions = [];
 
+const userAnswers = [];
+const userQuestion = [];
+let sendData = [];
+
 let questions = [];
 
 fetch("http://localhost:7000/api/v1/questions")
@@ -62,6 +66,36 @@ getNewQuestion = () => {
   if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
     localStorage.setItem("mostRecentScore", score);
     //go to the end page
+
+    userQuestion.forEach((e, i) => {
+      const bodyObj = {
+        question: e,
+        answer: userAnswers[i]
+      };
+      console.log(bodyObj);
+      sendData.push(bodyObj);
+    });
+
+    console.log(sendData);
+
+    const Data = {
+      userData: sendData
+    };
+
+    fetch("http://localhost:7000/api/v1/user", {
+      method: "POST",
+      body: JSON.stringify(Data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then(d => d.json())
+      .then(d => {
+        console.log(d);
+      })
+      .catch(err => console.log(err));
+    //POST METHOD HERE
+
     return window.location.assign("./end.html");
   }
   questionCounter++;
@@ -72,6 +106,9 @@ getNewQuestion = () => {
   const questionIndex = Math.floor(Math.random() * availableQuesions.length);
   currentQuestion = availableQuesions[questionIndex];
   question.innerHTML = currentQuestion.question;
+
+  //user question
+  userQuestion.push(currentQuestion.question);
 
   choices.forEach(choice => {
     const number = choice.dataset["number"];
@@ -89,6 +126,9 @@ choices.forEach(choice => {
     acceptingAnswers = false;
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
+
+    //arr
+    userAnswers.push(selectedChoice.innerText);
 
     const classToApply =
       selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
@@ -110,3 +150,12 @@ incrementScore = num => {
   score += num;
   scoreText.innerText = score;
 };
+
+userQuestion.forEach((e, i) => {
+  const bodyObj = {
+    question: e,
+    answer: userAnswers[i]
+  };
+
+  console.log(bodyObj);
+});

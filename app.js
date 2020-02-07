@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const questionsRouter = require("./routes/questionRouter");
+const userRouter = require("./routes/userrouter");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controller/errorController");
 const app = express();
@@ -15,6 +16,7 @@ app.use("/quiz", (req, res) => {
 });
 
 app.use("/api/v1/questions", questionsRouter);
+app.use("/api/v1/user", userRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl}`, 404));
