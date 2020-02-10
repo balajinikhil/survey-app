@@ -82,6 +82,7 @@ getNewQuestion = () => {
       userData: sendData
     };
 
+    //POST METHOD HERE
     fetch("http://localhost:7000/api/v1/user", {
       method: "POST",
       body: JSON.stringify(Data),
@@ -94,7 +95,6 @@ getNewQuestion = () => {
         console.log(d);
       })
       .catch(err => console.log(err));
-    //POST METHOD HERE
 
     return window.location.assign("./end.html");
   }
